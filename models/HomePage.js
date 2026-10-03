@@ -177,27 +177,12 @@ const homePageSchema = new mongoose.Schema(
     // =========================
     // Homepage Section Visibility
     // =========================
-    showPrograms: {
-      type: Boolean,
-      default: true,
-    },
-
-    showFaculty: {
-      type: Boolean,
-      default: true,
-    },
-
     showProjects: {
       type: Boolean,
       default: true,
     },
 
     showAchievements: {
-      type: Boolean,
-      default: true,
-    },
-
-    showResearch: {
       type: Boolean,
       default: true,
     },

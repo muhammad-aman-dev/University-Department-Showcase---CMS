@@ -4,13 +4,13 @@ const siteSettingsSchema = new mongoose.Schema(
   {
     universityName: {
       type: String,
-      required: true,
+      default: "",
       trim: true,
     },
 
     departmentName: {
       type: String,
-      required: true,
+      default: "Department of Computer Science",
       trim: true,
     },
 
@@ -22,12 +22,6 @@ const siteSettingsSchema = new mongoose.Schema(
     favicon: {
       type: String,
       default: "",
-    },
-
-    description: {
-      type: String,
-      default: "",
-      trim: true,
     },
 
     email: {
@@ -43,6 +37,11 @@ const siteSettingsSchema = new mongoose.Schema(
     },
 
     address: {
+      type: String,
+      default: "",
+    },
+
+    websiteUrl: {
       type: String,
       default: "",
       trim: true,
@@ -68,9 +67,19 @@ const siteSettingsSchema = new mongoose.Schema(
         type: String,
         default: "",
       },
+
+      twitter: {
+        type: String,
+        default: "",
+      },
     },
 
-    footerText: {
+    footerDescription: {
+      type: String,
+      default: "",
+    },
+
+    copyrightText: {
       type: String,
       default: "",
     },
