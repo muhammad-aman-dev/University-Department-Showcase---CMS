@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { connectDB } from "@/lib/db";
 import SiteSettings from "@/models/SiteSettings";
 import { getCurrentUser } from "@/lib/getCurrentUser";
@@ -20,10 +20,11 @@ export async function GET() {
 
     await connectDB();
 
-    let settings = await SiteSettings.findOne();
+    let settings = await SiteSettings.findOne().lean();
 
     if (!settings) {
       settings = await SiteSettings.create({});
+      settings = settings.toObject();
     }
 
     return NextResponse.json({
@@ -67,20 +68,38 @@ export async function PUT(request) {
       settings = new SiteSettings();
     }
 
-    Object.assign(settings, body);
+    /*
+     * Only accept fields that belong to SiteSettings.
+     * This prevents arbitrary request fields from being saved.
+     */
+    const allowedFields = [
+      "universityName",
+      "departmentName",
+      "facultyName",
+      "logo",
+      "favicon",
+      "email",
+      "phone",
+      "address",
+      "websiteUrl",
+      "socialLinks",
+      "footerDescription",
+      "copyrightText",
+      "seo",
+    ];
+
+    for (const field of allowedFields) {
+      if (body[field] !== undefined) {
+        settings[field] = body[field];
+      }
+    }
 
     await settings.save();
 
-    // Fresh data for the public website
-    revalidatePath("/");
-    revalidatePath("/about");
-    revalidatePath("/programs");
-    revalidatePath("/faculty");
-    revalidatePath("/research");
-    revalidatePath("/projects");
-    revalidatePath("/news");
-    revalidatePath("/events");
-    revalidatePath("/contact");
+    /*
+     * Invalidate the cached public SiteSettings response.
+     */
+    revalidateTag("site-settings");
 
     return NextResponse.json({
       success: true,

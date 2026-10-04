@@ -3,6 +3,24 @@ import { Toaster } from "sonner";
 import AdminShell from "@/components/admin/AdminShell";
 import { getCurrentUser } from "@/lib/getCurrentUser";
 
+export const metadata = {
+  title: {
+    default: "Admin Panel",
+    template: "%s | Admin Panel",
+  },
+
+  description: "Department of Computer Science administration panel.",
+
+  icons: {
+    icon: "/adminfavicon.svg",
+  },
+
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 export default async function AdminLayout({ children }) {
   const user = await getCurrentUser();
 

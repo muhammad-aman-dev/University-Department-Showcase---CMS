@@ -7,29 +7,27 @@ import ProjectsSection from "@/components/home/ProjectsSection";
 import AchievementsSection from "@/components/home/AchievementsSection";
 import NewsEventsNoticesSection from "@/components/home/NewsEventsNoticesSection";
 
-export async function generateMetadata() {
-  const data = await getDepartmentData();
-  const title = data?.homePage?.hero?.title || "Department of Computer Science";
-  const description = data?.homePage?.hero?.description || "Shaping the Future Through Computing and Innovation.";
-  const heroImage = data?.homePage?.hero?.images?.[0]?.url;
+// export async function generateMetadata() {
+//   const data = await getDepartmentData();
+//   const title = data?.homePage?.hero?.title || "Department of Computer Science";
+//   const description = data?.homePage?.hero?.description || "Shaping the Future Through Computing and Innovation.";
+//   const heroImage = data?.homePage?.hero?.images?.[0]?.url;
 
-  return {
-    title: `${title} | Academic Portal`,
-    description: description,
-    openGraph: {
-      title: `${title} | Academic Portal`,
-      description: description,
-      images: heroImage ? [{ url: heroImage }] : [],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${title}`,
-      description: description,
-      images: heroImage ? [heroImage] : [],
-    },
-  };
-}
+//   return {
+//     title: `${title} | Academic Portal`,
+//     description: description,
+//     openGraph: {
+//       title: `${title} | Academic Portal`,
+//       description: description,
+//       type: "website",
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//       title: `${title}`,
+//       description: description,
+//     },
+//   };
+// }
 
 export default async function HomePage() {
   const data = await getDepartmentData();

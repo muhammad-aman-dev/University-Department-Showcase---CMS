@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background Card / App Container -->
+  <rect width="64" height="64" rx="14" fill="#1e3a8a" />
+  
+  <!-- Academic Mortarboard Cap -->
+  <path d="M32 14L12 24L32 34L52 24L32 14Z" fill="#ffffff" />
+  <path d="M20 30.5V40C20 45 26 48 32 48C38 48 44 45 44 40V30.5L32 36.5L20 30.5Z" fill="#38bdf8" />
+  
+  <!-- Tassel -->
+  <path d="M46 25V35C46 36.1046 45.1046 37 44 37C42.8954 37 42 36.1046 42 35V25" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" />
+  <circle cx="44" cy="37" r="1.5" fill="#fbbf24" />
+</svg>

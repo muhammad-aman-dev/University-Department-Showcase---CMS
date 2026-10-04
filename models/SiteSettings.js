@@ -14,14 +14,22 @@ const siteSettingsSchema = new mongoose.Schema(
       trim: true,
     },
 
+    facultyName: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
     logo: {
       type: String,
       default: "",
+      trim: true,
     },
 
     favicon: {
       type: String,
       default: "",
+      trim: true,
     },
 
     email: {
@@ -39,6 +47,7 @@ const siteSettingsSchema = new mongoose.Schema(
     address: {
       type: String,
       default: "",
+      trim: true,
     },
 
     websiteUrl: {
@@ -51,37 +60,69 @@ const siteSettingsSchema = new mongoose.Schema(
       facebook: {
         type: String,
         default: "",
+        trim: true,
       },
 
       instagram: {
         type: String,
         default: "",
+        trim: true,
       },
 
       linkedin: {
         type: String,
         default: "",
+        trim: true,
       },
 
       youtube: {
         type: String,
         default: "",
+        trim: true,
       },
 
       twitter: {
         type: String,
         default: "",
+        trim: true,
       },
     },
 
     footerDescription: {
       type: String,
       default: "",
+      trim: true,
     },
 
     copyrightText: {
       type: String,
       default: "",
+      trim: true,
+    },
+
+    seo: {
+      title: {
+        type: String,
+        default: "",
+        trim: true,
+      },
+
+      description: {
+        type: String,
+        default: "",
+        trim: true,
+      },
+
+      keywords: {
+        type: [String],
+        default: [],
+      },
+
+      ogImage: {
+        type: String,
+        default: "",
+        trim: true,
+      },
     },
   },
   {
