@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function AboutHero({ title, image }) {
   return (
-    <section className="relative overflow-hidden bg-[#0c3559]">
+    <section className="relative h-[55vh] sm:h-[70vh] overflow-hidden bg-[#0c3559]">
       {image && (
         <div className="absolute inset-0">
           <Image
@@ -17,7 +17,7 @@ export default function AboutHero({ title, image }) {
             className="object-cover"
           />
 
-          <div className="absolute inset-0 bg-[#0c3559]/85" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#0c3559]/85 via-[#0c3559]/60 to-transparent" />
         </div>
       )}
 
@@ -25,7 +25,7 @@ export default function AboutHero({ title, image }) {
         <div className="absolute inset-0 bg-linear-to-br from-[#0c3559] to-[#082640]" />
       )}
 
-      <div className="relative mx-auto flex min-h-70 max-w-7xl items-center px-4 py-16 sm:min-h-85 sm:px-8">
+      <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-4 sm:px-8">
         <motion.div
           className="max-w-3xl"
           initial="hidden"
@@ -41,21 +41,21 @@ export default function AboutHero({ title, image }) {
           }}
         >
           <motion.p
-  variants={{
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  }}
-  className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-amber-400 sm:text-base"
->
-  Who We Are
-</motion.p>
+            variants={{
+              hidden: { opacity: 0, y: 15 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.5,
+                  ease: "easeOut",
+                },
+              },
+            }}
+            className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-amber-400 sm:text-base"
+          >
+            Who We Are
+          </motion.p>
 
           {/* Main Heading */}
           <motion.h1
@@ -90,9 +90,8 @@ export default function AboutHero({ title, image }) {
             }}
             className="mt-4 max-w-2xl text-sm leading-6 text-blue-100 sm:text-base"
           >
-            Discover our academic journey, vision, mission, and commitment
-            to excellence in computer science education, research, and
-            innovation.
+            Discover our academic journey, vision, mission, and commitment to
+            excellence in computer science education, research, and innovation.
           </motion.p>
 
           {/* Accent Line */}

@@ -20,7 +20,7 @@ export default function HeroCarousel({ hero }) {
   if (!images.length) return null;
 
   return (
-    <div className="relative h-[70vh] w-full overflow-hidden bg-gray-900">
+    <div className="relative h-[55vh] sm:h-[70vh] w-full overflow-hidden bg-gray-900">
       {/* Background Image Stack with Next.js Image and Smooth Opacity Crossfade */}
       {images.map((img, index) => (
         <motion.div
@@ -45,7 +45,7 @@ export default function HeroCarousel({ hero }) {
       ))}
 
       {/* Dark Overlay matching university deep blue theme */}
-      <div className="absolute inset-0 bg-linear-to-r from-[#1c295e]/90 via-[#1c295e]/75 to-transparent z-10" />
+      <div className="absolute inset-0 bg-linear-to-r from-[#0c3559]/85 via-[#0c3559]/60 to-transparent z-10" />
 
       {/* Content Layer */}
       <div className="relative z-20 mx-auto flex h-full max-w-7xl flex-col justify-center px-6 sm:px-8 lg:px-12">
