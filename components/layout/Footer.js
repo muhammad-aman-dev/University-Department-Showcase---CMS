@@ -88,6 +88,7 @@ export default function Footer({ settings }) {
                   fill
                   sizes="40px"
                   className="object-contain p-1"
+                  quality={100}
                 />
               </div>
             ) : (

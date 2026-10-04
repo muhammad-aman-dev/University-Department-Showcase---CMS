@@ -84,6 +84,7 @@ export default function Header({ settings }) {
                     fill
                     sizes="(max-width: 640px) 36px, 48px"
                     className="object-contain p-1"
+                    quality={100}
                   />
                 </div>
               ) : (
