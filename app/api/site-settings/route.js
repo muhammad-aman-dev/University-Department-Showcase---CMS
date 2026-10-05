@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/db";
-import SiteSettings from "@/models/SiteSettings";
+import { getSiteSettings } from "@/lib/data/site-settings";
 
 export async function GET() {
   try {
-    await connectDB();
-
-    const settings = await SiteSettings.findOne().lean();
+    const settings = await getSiteSettings();
 
     return NextResponse.json({
       success: true,
@@ -20,7 +17,9 @@ export async function GET() {
         success: false,
         message: "Failed to load site settings",
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }

@@ -40,6 +40,7 @@ export default function HeroCarousel({ hero }) {
             priority={index === 0}
             sizes="100vw"
             className="object-cover"
+            loading="eager"
           />
         </motion.div>
       ))}

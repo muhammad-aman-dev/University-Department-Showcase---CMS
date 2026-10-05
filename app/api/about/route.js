@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/db";
-import AboutPage from "@/models/AboutPage";
+import { getAboutPage } from "@/lib/data/about";
 
 export async function GET() {
   try {
-    await connectDB();
-
-    const about = await AboutPage.findOne().lean();
+    const about = await getAboutPage();
 
     return NextResponse.json({
       success: true,
@@ -20,7 +17,9 @@ export async function GET() {
         success: false,
         message: "Failed to load about page",
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }

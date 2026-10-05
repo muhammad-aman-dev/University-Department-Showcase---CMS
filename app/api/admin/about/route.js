@@ -93,7 +93,7 @@ export async function PUT(request) {
 
     await about.save();
 
-    revalidateTag("about-page");
+    revalidateTag("about-page", "max");
 
     return NextResponse.json({
       success: true,

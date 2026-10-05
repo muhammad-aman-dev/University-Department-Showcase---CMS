@@ -6,39 +6,7 @@ import AboutObjectives from "@/components/about/AboutObjectives";
 import AboutScope from "@/components/about/AboutScope";
 import AboutFacilities from "@/components/about/AboutFacilities";
 
-async function getAboutPage() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL}/api/about`,
-      {
-        next: {
-          revalidate: 60 * 60 * 24 * 3,
-          tags: ["about-page"],
-        },
-      }
-    );
-
-    if (!response.ok) {
-      console.error(
-        `Failed to fetch about page: ${response.status}`
-      );
-
-      return null;
-    }
-
-    const result = await response.json();
-
-    if (!result?.success || !result?.data) {
-      return null;
-    }
-
-    return result.data;
-  } catch (error) {
-    console.error("Failed to fetch about page:", error);
-
-    return null;
-  }
-}
+import { getAboutPage } from "@/lib/data/about";
 
 export async function generateMetadata() {
   const about = await getAboutPage();
@@ -110,7 +78,6 @@ export default async function AboutPage() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-slate-50">
-
       <AboutHero
         title={about.title}
         image={about.pageImage}

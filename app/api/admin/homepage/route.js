@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 import { connectDB } from "@/lib/db";
 import HomePage from "@/models/HomePage";
@@ -72,7 +72,7 @@ export async function PUT(request) {
 
     await homePage.save();
 
-    revalidatePath("/");
+    revalidateTag("homepage-data", "max");
 
     return NextResponse.json({
       success: true,

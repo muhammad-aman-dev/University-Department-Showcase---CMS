@@ -99,7 +99,7 @@ export async function PUT(request) {
     /*
      * Invalidate the cached public SiteSettings response.
      */
-    revalidateTag("site-settings");
+    revalidateTag("site-settings", "max");
 
     return NextResponse.json({
       success: true,

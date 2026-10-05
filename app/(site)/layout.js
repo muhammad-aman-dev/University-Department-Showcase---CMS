@@ -1,39 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
-async function getSiteSettings() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL}/api/site-settings`,
-      {
-        next: {
-          revalidate: 60 * 60 * 24 * 3,
-          tags: ["site-settings"],
-        },
-      }
-    );
-
-    if (!response.ok) {
-      console.error(
-        `Failed to fetch site settings: ${response.status}`
-      );
-
-      return null;
-    }
-
-    const result = await response.json();
-
-    if (!result?.success || !result?.data) {
-      return null;
-    }
-
-    return result.data;
-  } catch (error) {
-    console.error("Failed to fetch site settings:", error);
-
-    return null;
-  }
-}
+import { getSiteSettings } from "@/lib/data/site-settings";
 
 export async function generateMetadata() {
   const settings = await getSiteSettings();
@@ -43,7 +11,8 @@ export async function generateMetadata() {
     "Department of Computer Science";
 
   const universityName =
-    settings?.universityName?.trim() || "";
+    settings?.universityName?.trim() ||
+    "";
 
   const title = universityName
     ? `${departmentName} | ${universityName}`
@@ -53,12 +22,14 @@ export async function generateMetadata() {
     settings?.seo?.description?.trim() ||
     `${departmentName} official website.`;
 
-  const keywords = Array.isArray(settings?.seo?.keywords)
-    ? settings.seo.keywords
-    : [];
+  const keywords =
+    Array.isArray(settings?.seo?.keywords)
+      ? settings.seo.keywords
+      : [];
 
   const ogImage =
-    settings?.seo?.ogImage?.trim() || "";
+    settings?.seo?.ogImage?.trim() ||
+    "";
 
   const siteUrl =
     process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "");
@@ -84,7 +55,9 @@ export async function generateMetadata() {
     icons: {
       icon: [
         {
-          url: settings?.favicon || "/default-icon.png",
+          url:
+            settings?.favicon ||
+            "/default-icon.png",
           type: "image/png",
         },
       ],
@@ -133,7 +106,9 @@ export async function generateMetadata() {
   };
 }
 
-export default async function SiteLayout({ children }) {
+export default async function SiteLayout({
+  children,
+}) {
   const settings = await getSiteSettings();
 
   return (
