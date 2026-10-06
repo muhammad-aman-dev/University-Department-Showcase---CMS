@@ -14,9 +14,9 @@ export default function AboutHistory({ history }) {
         
         {/* Left Column: Text Content */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
+          initial={{ x: -30 }}
+          whileInView={{ x: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-amber-600">
@@ -35,10 +35,10 @@ export default function AboutHistory({ history }) {
         {/* Right Column: Image */}
         {history.image && (
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+          initial={{ x: 30 }}
+          whileInView={{ x: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
             className="relative aspect-4/3 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
           >
             <Image

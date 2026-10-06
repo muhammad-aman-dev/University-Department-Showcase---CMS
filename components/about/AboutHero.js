@@ -28,30 +28,17 @@ export default function AboutHero({ title, image }) {
       <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-4 sm:px-8">
         <motion.div
           className="max-w-3xl"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.15,
-              },
-            },
+          initial={{ y: 18, scale: 0.99 }}
+          animate={{ y: 0, scale: 1 }}
+          transition={{
+            duration: 0.75,
+            ease: [0.22, 1, 0.36, 1],
           }}
         >
           <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 15 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.5,
-                  ease: "easeOut",
-                },
-              },
-            }}
+            initial={{ y: 15 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
             className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-amber-400 sm:text-base"
           >
             Who We Are
@@ -59,17 +46,9 @@ export default function AboutHero({ title, image }) {
 
           {/* Main Heading */}
           <motion.h1
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.5,
-                  ease: "easeOut",
-                },
-              },
-            }}
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
             className="text-3xl font-black tracking-tight text-white sm:text-4xl md:text-5xl"
           >
             {title || "About the Department"}
@@ -77,17 +56,9 @@ export default function AboutHero({ title, image }) {
 
           {/* Supporting Text */}
           <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 15 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.5,
-                  ease: "easeOut",
-                },
-              },
-            }}
+            initial={{ y: 15 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
             className="mt-4 max-w-2xl text-sm leading-6 text-blue-100 sm:text-base"
           >
             Discover our academic journey, vision, mission, and commitment to
@@ -96,19 +67,15 @@ export default function AboutHero({ title, image }) {
 
           {/* Accent Line */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, width: 0 },
-              visible: {
-                opacity: 1,
-                width: "4rem",
-                transition: {
-                  duration: 0.6,
-                  ease: "easeOut",
-                },
-              },
-            }}
-            className="mt-6 h-1 rounded-full bg-amber-400"
-          />
+  initial={{ width: 0 }}
+  animate={{ width: "4rem" }}
+  transition={{
+    duration: 0.6,
+    ease: "easeOut",
+    delay: 0.4,
+  }}
+  className="mt-6 h-1 rounded-full bg-amber-400"
+/>
         </motion.div>
       </div>
     </section>

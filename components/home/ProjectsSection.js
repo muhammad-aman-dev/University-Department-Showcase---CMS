@@ -21,9 +21,9 @@ export default function ProjectsSection({ projects }) {
         {projects.slice(0, 3).map((proj, idx) => (
           <motion.div
             key={proj._id || idx}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            initial={{ y: 20 }}
+whileInView={{ y: 0 }}
+viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.4, delay: idx * 0.1 }}
             className="flex flex-col justify-between rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 transition hover:shadow-md"
           >

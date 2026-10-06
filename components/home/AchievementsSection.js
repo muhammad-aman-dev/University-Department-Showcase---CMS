@@ -22,9 +22,9 @@ export default function AchievementsSection({ achievements }) {
           {achievements.slice(0, 4).map((item, idx) => (
             <motion.div
               key={item._id || idx}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              initial={{ x: idx % 2 === 0 ? -20 : 20 }}
+whileInView={{ x: 0 }}
+viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="rounded-3xl bg-white/5 p-8 backdrop-blur-md ring-1 ring-white/10"
             >

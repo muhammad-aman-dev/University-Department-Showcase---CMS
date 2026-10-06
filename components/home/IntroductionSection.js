@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function IntroductionSection({ introduction, hodMessage }) {
@@ -7,14 +8,17 @@ export default function IntroductionSection({ introduction, hodMessage }) {
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-12">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
+        {/* Introduction Overview */}
         {introduction && (
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+          initial={{ x: -30 }}
+          whileInView={{ x: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6 }}
           >
-            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Overview</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">
+              Overview
+            </span>
             <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               {introduction.title}
             </h2>
@@ -22,24 +26,40 @@ export default function IntroductionSection({ introduction, hodMessage }) {
               {introduction.content}
             </p>
             {introduction.image && (
-              <div className="mt-6 overflow-hidden rounded-2xl shadow-md">
-                <img src={introduction.image} alt="Introduction" className="h-64 w-full object-cover transition hover:scale-105 duration-500" />
+              <div className="relative mt-6 h-64 w-full overflow-hidden rounded-2xl shadow-md">
+                <Image
+                  src={introduction.image}
+                  alt={introduction.title || "Introduction"}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={90} // Ensures high visual fidelity without compromising quality
+                  className="object-contain transition duration-500 hover:scale-105"
+                />
               </div>
             )}
           </motion.div>
         )}
 
+        {/* HOD Message */}
         {hodMessage && (
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+          initial={{ x: 30 }}
+          whileInView={{ x: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.6 }}
             className="rounded-3xl bg-slate-900 p-8 text-white shadow-2xl sm:p-10"
           >
             <div className="flex items-center gap-4">
               {hodMessage.image && (
-                <img src={hodMessage.image} alt={hodMessage.name} className="h-16 w-16 rounded-full border-2 border-blue-400 object-cover" />
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-blue-400">
+                  <Image
+                    src={hodMessage.image}
+                    alt={hodMessage.name || "HOD"}
+                    fill
+                    quality={90}
+                    className="object-contain"
+                  />
+                </div>
               )}
               <div>
                 <h3 className="text-lg font-bold">{hodMessage.name}</h3>

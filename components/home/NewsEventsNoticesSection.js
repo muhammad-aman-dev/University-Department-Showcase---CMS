@@ -22,9 +22,9 @@ export default function NewsEventsNoticesSection({ news, events, notices }) {
                 {news.slice(0, 3).map((item, idx) => (
                   <motion.div
                     key={item._id || idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    initial={{ y: 10 }}
+whileInView={{ y: 0 }}
+viewport={{ once: true, amount: 0.1 }}
                     className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-900/5"
                   >
                     <span className="text-[11px] font-semibold text-blue-600">
@@ -49,9 +49,9 @@ export default function NewsEventsNoticesSection({ news, events, notices }) {
                 {events.slice(0, 3).map((ev, idx) => (
                   <motion.div
                     key={ev._id || idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    initial={{ y: 10 }}
+whileInView={{ y: 0 }}
+viewport={{ once: true, amount: 0.1 }}
                     className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-900/5"
                   >
                     <span className="text-[11px] font-semibold text-emerald-600">
@@ -76,9 +76,9 @@ export default function NewsEventsNoticesSection({ news, events, notices }) {
                 {notices.slice(0, 3).map((notice, idx) => (
                   <motion.div
                     key={notice._id || idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    initial={{ y: 10 }}
+whileInView={{ y: 0 }}
+viewport={{ once: true, amount: 0.1 }}
                     className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-900/5 border-l-4 border-blue-600"
                   >
                     <span className="text-[11px] font-semibold text-blue-600 uppercase tracking-wide">{notice.category}</span>

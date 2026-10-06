@@ -11,13 +11,13 @@ export default function StatisticsSection({ statistics }) {
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           {statistics.map((stat, idx) => (
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="text-center"
-            >
+            key={idx}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            className="text-center"
+          >
               <p className="text-3xl font-extrabold text-blue-900 sm:text-4xl">
                 {stat.value}
               </p>

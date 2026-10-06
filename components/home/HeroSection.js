@@ -21,7 +21,6 @@ export default function HeroCarousel({ hero }) {
 
   return (
     <div className="relative h-[55vh] sm:h-[70vh] w-full overflow-hidden bg-gray-900">
-      {/* Background Image Stack with Next.js Image and Smooth Opacity Crossfade */}
       {images.map((img, index) => (
         <motion.div
           key={img._id || index}
@@ -40,7 +39,6 @@ export default function HeroCarousel({ hero }) {
             priority={index === 0}
             sizes="100vw"
             className="object-cover"
-            loading="eager"
           />
         </motion.div>
       ))}
@@ -50,12 +48,16 @@ export default function HeroCarousel({ hero }) {
 
       {/* Content Layer */}
       <div className="relative z-20 mx-auto flex h-full max-w-7xl flex-col justify-center px-6 sm:px-8 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-3xl"
-        >
+      <motion.div
+  initial={{ y: 18, scale: 0.99 }}
+  animate={{ y: 0, scale: 1 }}
+  transition={{
+    duration: 0.75,
+    delay: 0.1,
+    ease: [0.22, 1, 0.36, 1],
+  }}
+  className="max-w-3xl"
+>
           <span className="mb-3 inline-block rounded-full bg-blue-600/30 px-3.5 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-blue-200 backdrop-blur-md">
             Official Department Portal
           </span>
