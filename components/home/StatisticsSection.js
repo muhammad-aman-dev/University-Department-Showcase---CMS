@@ -6,24 +6,25 @@ export default function StatisticsSection({ statistics }) {
   if (!statistics || statistics.length === 0) return null;
 
   return (
-    <section className="bg-white py-12 border-b border-gray-100 shadow-sm">
+    <section className="bg-white py-16 border-y border-gray-200">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
           {statistics.map((stat, idx) => (
             <motion.div
-            key={idx}
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.5, delay: idx * 0.1 }}
-            className="text-center"
-          >
-              <p className="text-3xl font-extrabold text-blue-900 sm:text-4xl">
+              key={idx}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4, delay: idx * 0.1, ease: "easeOut" }}
+              className={`flex flex-col items-center justify-center text-center ${
+                idx !== 0 ? "pt-8 sm:pt-0" : ""
+              }`}
+            >
+              <span className="text-4xl font-extrabold tracking-tight text-blue-900 sm:text-5xl">
                 {stat.value}
-              </p>
-              <p className="mt-1 text-sm font-medium text-gray-600 sm:text-base">
+              </span>
+              <span className="mt-2 text-sm font-medium tracking-wide text-gray-500 uppercase">
                 {stat.label}
-              </p>
+              </span>
             </motion.div>
           ))}
         </div>
