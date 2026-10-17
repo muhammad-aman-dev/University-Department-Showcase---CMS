@@ -404,9 +404,9 @@ export default function StudentProjectsPage() {
                       </span>
 
                       <div className="flex items-center gap-1">
-                        {project.projectUrl && (
+                        {project.slug && (
                           <a
-                            href={project.projectUrl}
+                            href={`/projects/${project.slug}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Open live project"

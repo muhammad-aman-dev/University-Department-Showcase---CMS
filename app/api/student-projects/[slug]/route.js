@@ -34,6 +34,8 @@ export async function GET(request, { params }) {
       );
     }
 
+    console.log("🔥 DATABASE HIT: getStudentProjectBySlug")
+
     return NextResponse.json({
       success: true,
       data: project,

@@ -342,7 +342,7 @@ export default function StudentProjectsDirectory() {
               key={index}
               className="overflow-hidden rounded-2xl border border-slate-200 bg-white"
             >
-              <div className="aspect-[16/10] animate-pulse bg-slate-200" />
+              <div className="aspect-16/10 animate-pulse bg-slate-200" />
               <div className="space-y-3 p-5">
                 <div className="h-3 w-1/3 animate-pulse rounded bg-slate-200" />
                 <div className="h-6 w-4/5 animate-pulse rounded bg-slate-200" />
@@ -396,7 +396,7 @@ export default function StudentProjectsDirectory() {
                 >
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="relative block aspect-[16/10] overflow-hidden bg-gradient-to-br from-blue-50 to-slate-100"
+                    className="relative block aspect-16/10 overflow-hidden bg-linear-to-br from-blue-50 to-slate-100"
                     aria-label={`View ${project.title}`}
                   >
                     {project.image ? (
