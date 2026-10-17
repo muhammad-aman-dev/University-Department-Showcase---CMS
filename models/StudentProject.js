@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const studentProjectSchema = new mongoose.Schema(
@@ -16,9 +17,16 @@ const studentProjectSchema = new mongoose.Schema(
       trim: true,
     },
 
+    image: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
     shortDescription: {
       type: String,
       default: "",
+      trim: true,
     },
 
     description: {
@@ -60,11 +68,6 @@ const studentProjectSchema = new mongoose.Schema(
         trim: true,
       },
     ],
-
-    image: {
-      type: String,
-      default: "",
-    },
 
     projectUrl: {
       type: String,

@@ -40,7 +40,6 @@ function shuffleGroup(group) {
 
 function sortFaculty(faculty) {
   const sorted = [...faculty].sort((a, b) => {
-    // 1. Head of Department always comes first
     if (a.isHOD !== b.isHOD) {
       return a.isHOD ? -1 : 1;
     }
@@ -51,12 +50,9 @@ function sortFaculty(faculty) {
     const priorityB =
       designationPriority[b.designation] ?? designationPriority.Other;
 
-    // 2. Sort by designation hierarchy
     if (priorityA !== priorityB) {
       return priorityA - priorityB;
     }
-
-    // 3. Sort by custom order within the same designation
     return (a.order ?? 0) - (b.order ?? 0);
   });
 
@@ -66,7 +62,6 @@ function sortFaculty(faculty) {
   while (i < sorted.length) {
     let j = i + 1;
 
-    // Find members with the same HOD status, designation, and order
     while (
       j < sorted.length &&
       sorted[j].isHOD === sorted[i].isHOD &&
@@ -76,7 +71,6 @@ function sortFaculty(faculty) {
       j++;
     }
 
-    // Randomize only members in the same tied group
     result.push(...shuffleGroup(sorted.slice(i, j)));
 
     i = j;

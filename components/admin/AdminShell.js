@@ -26,6 +26,7 @@ import {
   X,
   ChevronDown,
   ShieldAlert,
+  Activity,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -149,6 +150,10 @@ export default function AdminShell({ children, user }) {
   const pathname = usePathname();
   const router = useRouter();
 
+  // Enterprise version & environment configuration
+  const appVersion = process.env.NEXT_PUBLIC_VERSION || "1.0.0";
+  const nodeEnv = process.env.NODE_ENV || "development";
+
   async function handleLogout() {
     try {
       const response = await fetch("/api/auth/logout", {
@@ -191,6 +196,15 @@ export default function AdminShell({ children, user }) {
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #9ca3af;
+        }
+
+        @keyframes pulseGlow {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.6; transform: scale(1.05); }
+        }
+
+        .animate-pulse-glow {
+          animation: pulseGlow 3s ease-in-out infinite;
         }
       `}</style>
 
@@ -339,20 +353,40 @@ export default function AdminShell({ children, user }) {
       </aside>
 
       <div className="flex-1 lg:pl-64 flex flex-col min-w-0">
-        <header className="sticky top-0 z-30 flex h-16 items-center border-b border-gray-200 bg-white/80 backdrop-blur-md px-4 lg:px-6 shadow-xs">
-          <button
-            type="button"
-            onClick={() => setSidebarOpen(true)}
-            className="mr-4 rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 lg:hidden"
-            aria-label="Open sidebar"
-          >
-            <Menu size={22} />
-          </button>
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-gray-200 bg-white/80 backdrop-blur-md px-4 lg:px-6 shadow-xs">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(true)}
+              className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 lg:hidden"
+              aria-label="Open sidebar"
+            >
+              <Menu size={22} />
+            </button>
 
-          <div className="flex-1">
-            <h2 className="text-sm font-bold text-gray-900 font-sans uppercase tracking-wider">
-              Management Dashboard
-            </h2>
+            <div>
+              <h2 className="text-sm font-bold text-gray-900 font-sans uppercase tracking-wider flex items-center gap-2">
+                Management Dashboard
+              </h2>
+            </div>
+          </div>
+
+          {/* Enterprise System Badge & Status (Modern Look) */}
+          <div className="hidden md:flex items-center gap-3 bg-gray-100/80 border border-gray-200/80 px-3 py-1.5 rounded-full shadow-inner">
+            <div className="flex items-center gap-1.5">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              </span>
+              <span className="text-[11px] font-mono font-medium text-gray-700 capitalize">
+                {nodeEnv}
+              </span>
+            </div>
+            <span className="text-gray-300">|</span>
+            <div className="flex items-center gap-1 text-[11px] font-mono font-semibold text-blue-600">
+              <Activity size={12} className="animate-pulse-glow" />
+              <span>v{appVersion}</span>
+            </div>
           </div>
 
           <div className="relative">
