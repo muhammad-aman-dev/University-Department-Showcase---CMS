@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+import path from "node:path";
 
 import cloudinary from "@/lib/cloudinary";
 import { getCurrentUser } from "@/lib/getCurrentUser";
@@ -21,25 +22,14 @@ export async function POST(request) {
     }
 
     const formData = await request.formData();
-
     const file = formData.get("file");
     const folder = formData.get("folder") || "documents";
 
-    if (!file) {
+    if (!(file instanceof File) || file.size === 0) {
       return NextResponse.json(
         {
           success: false,
-          message: "No file provided",
-        },
-        { status: 400 }
-      );
-    }
-
-    if (!(file instanceof File)) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid file",
+          message: "Please select a valid, non-empty file",
         },
         { status: 400 }
       );
@@ -47,23 +37,32 @@ export async function POST(request) {
 
     const allowedTypes = [
       "application/pdf",
-
       "application/msword",
-
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-
       "application/vnd.ms-excel",
-
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-
       "application/vnd.ms-powerpoint",
-
       "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-
       "text/plain",
     ];
 
-    if (!allowedTypes.includes(file.type)) {
+    const allowedExtensions = [
+      ".pdf",
+      ".doc",
+      ".docx",
+      ".xls",
+      ".xlsx",
+      ".ppt",
+      ".pptx",
+      ".txt",
+    ];
+
+    const extension = path.extname(file.name).toLowerCase();
+
+    if (
+      !allowedExtensions.includes(extension) ||
+      !allowedTypes.includes(file.type)
+    ) {
       return NextResponse.json(
         {
           success: false,
@@ -86,19 +85,23 @@ export async function POST(request) {
       );
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const buffer = Buffer.from(await file.arrayBuffer());
+
+    // Include the extension in the public ID for raw files.
+    const publicId = `${uuidv4()}${extension}`;
 
     const result = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: `cs-department/${folder}`,
-          public_id: uuidv4(),
+          public_id: publicId,
           resource_type: "raw",
         },
         (error, result) => {
           if (error) {
             reject(error);
+          } else if (!result) {
+            reject(new Error("Cloudinary returned no upload result"));
           } else {
             resolve(result);
           }
@@ -114,7 +117,7 @@ export async function POST(request) {
       data: {
         url: result.secure_url,
         publicId: result.public_id,
-        originalName: file.name,
+        originalName: path.basename(file.name),
         format: result.format,
         size: file.size,
       },
