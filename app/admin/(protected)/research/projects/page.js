@@ -121,6 +121,8 @@ export default function ResearchProjectsAdminPage() {
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
   const [pageError, setPageError] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+const [projectToDelete, setProjectToDelete] = useState(null);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -261,27 +263,32 @@ export default function ResearchProjectsAdminPage() {
     }
   };
 
-  const handleDelete = async (project) => {
-    const confirmed = window.confirm(
-      `Delete the research project "${project.title}"? This action cannot be undone.`
-    );
-
-    if (!confirmed) return;
-
+  const handleDelete = (project) => {
+    setProjectToDelete(project);
+    setShowDeleteModal(true);
+  };
+  
+  const confirmDelete = async () => {
+    if (!projectToDelete) return;
+  
+    const project = projectToDelete;
     setDeletingId(project._id);
-
+  
     try {
       const response = await fetch(
         `/api/admin/research/projects/${project._id}`,
         { method: "DELETE" }
       );
-
+  
       await readResponse(response);
-
+  
       toast.success("Research project deleted.");
-
+  
       if (editingId === project._id) resetForm();
-
+  
+      setShowDeleteModal(false);
+      setProjectToDelete(null);
+  
       await loadData();
     } catch (error) {
       toast.error(error.message || "Unable to delete research project.");
@@ -950,6 +957,92 @@ export default function ResearchProjectsAdminPage() {
           )}
         </section>
       </div>
+      
+{/* Custom Delete Confirmation Modal */}
+{showDeleteModal && projectToDelete && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm"
+    onClick={() => {
+      if (!deletingId) {
+        setShowDeleteModal(false);
+        setProjectToDelete(null);
+      }
+    }}
+  >
+    <div
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="delete-project-title"
+      aria-describedby="delete-project-description"
+      className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+      onClick={(event) => event.stopPropagation()}
+    >
+      {/* Warning icon */}
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-100 text-red-600">
+        <AlertCircle size={28} />
+      </div>
+
+      {/* Title */}
+      <h2
+        id="delete-project-title"
+        className="mt-5 text-xl font-bold text-slate-900"
+      >
+        Are you sure you want to delete?
+      </h2>
+
+      {/* Description */}
+      <p
+        id="delete-project-description"
+        className="mt-3 text-sm leading-6 text-slate-600"
+      >
+        You are about to delete the research project{" "}
+        <span className="font-bold text-slate-900">
+          "{projectToDelete.title}"
+        </span>
+        . This action cannot be undone.
+      </p>
+
+      {/* Warning message */}
+      <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3">
+        <p className="text-xs leading-5 text-red-800">
+          Deleting this project will permanently remove it from your
+          research projects. Make sure you want to continue.
+        </p>
+      </div>
+
+      {/* Actions */}
+      <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <button
+          type="button"
+          disabled={Boolean(deletingId)}
+          onClick={() => {
+            setShowDeleteModal(false);
+            setProjectToDelete(null);
+          }}
+          className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          disabled={Boolean(deletingId)}
+          onClick={confirmDelete}
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {deletingId ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <Trash2 size={16} />
+          )}
+
+          {deletingId ? "Deleting..." : "Yes, delete"}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </main>
   );
 }

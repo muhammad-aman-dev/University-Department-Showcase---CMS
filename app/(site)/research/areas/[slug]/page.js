@@ -13,8 +13,9 @@ import {
   getResearchAreaBySlug,
   getProjectsForResearchArea,
 } from "@/lib/data/researchDetails";
+import BackButton from "@/components/BackButton";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "");
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/+$/, "");
 
 function getCanonicalUrl(slug) {
   const path = `/research/areas/${encodeURIComponent(slug)}`;
@@ -23,6 +24,14 @@ function getCanonicalUrl(slug) {
 
 function safeJsonLd(data) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+function getBackUrl() {
+  if (window.history.back().includes(siteUrl)) {
+    return window.history.back();
+  } else {
+    return "/reserach/areas";
+  }
 }
 
 function formatDate(value) {
@@ -99,8 +108,7 @@ export default async function ResearchAreaDetailPage({ params }) {
   const projects = await getProjectsForResearchArea(area.name);
   const canonical = getCanonicalUrl(area.slug);
 
-  const description =
-    area.shortDescription || area.description || "";
+  const description = area.shortDescription || area.description || "";
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -148,8 +156,8 @@ export default async function ResearchAreaDetailPage({ params }) {
         }}
       />
 
-            {/* Hero */}
-            <section className="relative isolate overflow-hidden bg-blue-950 px-5 py-12 text-white sm:px-8 sm:py-16 lg:py-20">
+      {/* Hero */}
+      <section className="relative isolate overflow-hidden bg-blue-950 px-5 py-12 text-white sm:px-8 sm:py-16 lg:py-20">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 -z-10"
@@ -176,14 +184,10 @@ export default async function ResearchAreaDetailPage({ params }) {
         />
 
         <div className="mx-auto max-w-7xl">
-          <Link
-            href="/research"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-blue-200 transition hover:text-amber-400"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Research &amp; Innovation
-          </Link>
-
+          <BackButton
+            fallbackUrl="/research/areas"
+            label="Research & Innovation"
+          />
           <div className="mt-7 flex items-center gap-3">
             <span className="h-1 w-12 rounded-full bg-amber-400" />
             <span className="h-px w-16 bg-white/20" />
@@ -204,22 +208,23 @@ export default async function ResearchAreaDetailPage({ params }) {
                 </p>
               ) : null}
 
-{projects.length > 0 ? (
-  <div className="mt-7 flex flex-wrap gap-3">
-    <a
-      href="#area-projects"
-      className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-5 py-3 font-bold text-blue-950 transition hover:bg-amber-300"
-    >
-      Explore projects
-      <ArrowRight className="h-4 w-4" />
-    </a>
+              {projects.length > 0 ? (
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <a
+                    href="#area-projects"
+                    className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-5 py-3 font-bold text-blue-950 transition hover:bg-amber-300"
+                  >
+                    Explore projects
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
 
-    <span className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-blue-100">
-      <FolderOpen className="h-4 w-4 text-amber-400" />
-      {projects.length} {projects.length === 1 ? "project" : "projects"}
-    </span>
-  </div>
-) : null}
+                  <span className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-blue-100">
+                    <FolderOpen className="h-4 w-4 text-amber-400" />
+                    {projects.length}{" "}
+                    {projects.length === 1 ? "project" : "projects"}
+                  </span>
+                </div>
+              ) : null}
             </div>
 
             <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-2xl">
@@ -322,11 +327,9 @@ export default async function ResearchAreaDetailPage({ params }) {
                         </Link>
                       </h3>
 
-                      {project.shortDescription ||
-                      project.description ? (
+                      {project.shortDescription || project.description ? (
                         <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate-600">
-                          {project.shortDescription ||
-                            project.description}
+                          {project.shortDescription || project.description}
                         </p>
                       ) : null}
 

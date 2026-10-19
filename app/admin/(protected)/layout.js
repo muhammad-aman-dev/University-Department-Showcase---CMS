@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { Toaster } from "sonner";
 import AdminShell from "@/components/admin/AdminShell";
 import { getCurrentUser } from "@/lib/getCurrentUser";
+import "./adminLayout.css"
 
 export const metadata = {
   title: {

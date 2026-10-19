@@ -19,7 +19,9 @@ import {
   getActiveResearchAreaByName,
 } from "@/lib/data/researchDetails";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "");
+import BackButton from "@/components/BackButton";
+
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/+$/, "");
 
 function getCanonicalUrl(slug) {
   const path = `/research/projects/${encodeURIComponent(slug)}`;
@@ -254,13 +256,10 @@ export default async function ResearchProjectDetailPage({ params }) {
         />
 
         <div className="mx-auto max-w-7xl">
-          <Link
-            href="/research"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-blue-200 transition hover:text-amber-400"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Research &amp; Innovation
-          </Link>
+        <BackButton
+  fallbackUrl="/research/projects"
+  label="Research & Innovation"
+/>
 
           <div className="mt-7 flex items-center gap-3">
             <span className="h-1 w-12 rounded-full bg-amber-400" />

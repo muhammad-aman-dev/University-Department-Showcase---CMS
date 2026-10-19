@@ -56,6 +56,8 @@ export default function ResearchAreasAdminPage() {
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
   const [pageError, setPageError] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+const [areaToDelete, setAreaToDelete] = useState(null);
 
   const loadAreas = useCallback(async () => {
     setLoading(true);
@@ -144,25 +146,34 @@ export default function ResearchAreasAdminPage() {
     }
   };
 
-  const handleDelete = async (area) => {
-    const confirmed = window.confirm(
-      `Delete "${area.name}"?\n\nExisting research projects will not be deleted or changed. Their research area text will remain as it is.`
-    );
-
-    if (!confirmed) return;
-
+  const handleDelete = (area) => {
+    setAreaToDelete(area);
+    setShowDeleteModal(true);
+  };
+  
+  const confirmDelete = async () => {
+    if (!areaToDelete) return;
+  
+    const area = areaToDelete;
     setDeletingId(area._id);
-
+  
     try {
       const response = await fetch(
         `/api/admin/research/areas/${area._id}`,
         { method: "DELETE" }
       );
-
+  
       await readResponse(response);
-      toast.success("Research area deleted. Existing projects were left unchanged.");
-
+  
+      toast.success(
+        "Research area deleted. Existing projects were left unchanged."
+      );
+  
       if (editingId === area._id) resetForm();
+  
+      setShowDeleteModal(false);
+      setAreaToDelete(null);
+  
       await loadAreas();
     } catch (error) {
       toast.error(error.message || "Unable to delete research area.");
@@ -596,6 +607,84 @@ export default function ResearchAreasAdminPage() {
           )}
         </section>
       </div>
+      {showDeleteModal && areaToDelete && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm"
+    onClick={() => {
+      if (!deletingId) {
+        setShowDeleteModal(false);
+        setAreaToDelete(null);
+      }
+    }}
+  >
+    <div
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="delete-modal-title"
+      aria-describedby="delete-modal-description"
+      className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-100 text-red-600">
+        <AlertCircle size={28} />
+      </div>
+
+      <h2
+        id="delete-modal-title"
+        className="mt-5 text-xl font-bold text-slate-900"
+      >
+        Are you sure you want to delete?
+      </h2>
+
+      <p
+        id="delete-modal-description"
+        className="mt-3 text-sm leading-6 text-slate-600"
+      >
+        You are about to delete{" "}
+        <span className="font-bold text-slate-900">
+          "{areaToDelete.name}"
+        </span>
+        . This action cannot be undone.
+      </p>
+
+      <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3">
+        <p className="text-xs leading-5 text-amber-900">
+          Existing research projects will not be deleted or changed.
+          Their research area text will remain as it is.
+        </p>
+      </div>
+
+      <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <button
+          type="button"
+          disabled={Boolean(deletingId)}
+          onClick={() => {
+            setShowDeleteModal(false);
+            setAreaToDelete(null);
+          }}
+          className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          disabled={Boolean(deletingId)}
+          onClick={confirmDelete}
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {deletingId ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <Trash2 size={16} />
+          )}
+
+          {deletingId ? "Deleting..." : "Yes, delete"}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </main>
   );
 }

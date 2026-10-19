@@ -72,18 +72,19 @@ export async function GET(request) {
       ];
     }
 
+    // Matches the server loader in lib/data/researchProjects.js
     let sortOption;
 
     switch (sort) {
       case "oldest":
-        sortOption = { createdAt: 1, _id: 1 };
+        sortOption = { startDate: 1, createdAt: 1, _id: 1 };
         break;
       case "title":
         sortOption = { title: 1, _id: 1 };
         break;
       case "newest":
       default:
-        sortOption = { createdAt: -1, _id: -1 };
+        sortOption = { startDate: -1, createdAt: -1, _id: -1 };
         break;
     }
 
