@@ -28,13 +28,9 @@ export default function ResearchProjectsClient({
 
   const [projects, setProjects] = useState(initialResult?.projects || []);
   const [total, setTotal] = useState(initialResult?.total || 0);
-  const [totalPages, setTotalPages] = useState(
-    initialResult?.totalPages || 0
-  );
+  const [totalPages, setTotalPages] = useState(initialResult?.totalPages || 0);
   const [error, setError] = useState(
-    initialError
-      ? "Research projects could not be loaded from the server."
-      : ""
+    initialError ? "Research projects could not be loaded from the server." : ""
   );
   const [loading, setLoading] = useState(false);
   const [refreshCount, setRefreshCount] = useState(0);
@@ -276,8 +272,7 @@ export default function ResearchProjectsClient({
                     <span className="font-bold text-blue-950">
                       {projects.length}
                     </span>{" "}
-                    of{" "}
-                    <span className="font-bold text-blue-950">{total}</span>{" "}
+                    of <span className="font-bold text-blue-950">{total}</span>{" "}
                     {total === 1 ? "project" : "projects"}
                   </>
                 )}
@@ -307,14 +302,18 @@ export default function ResearchProjectsClient({
                 ) : (
                   <EmptyState
                     title={
-                      hasActiveFilters
+                      total === 0 && !hasActiveFilters
+                        ? "No projects to show yet"
+                        : hasActiveFilters
                         ? "No matching projects"
-                        : "No projects yet"
+                        : "No projects to show yet"
                     }
                     description={
-                      hasActiveFilters
+                      total === 0 && !hasActiveFilters
+                        ? "Projects will appear here once the department publishes them."
+                        : hasActiveFilters
                         ? "Try changing your search terms or filters to find other research projects."
-                        : "Research projects will appear here once they have been published."
+                        : "Projects will appear here once the department publishes them."
                     }
                     onClear={hasActiveFilters ? clearFilters : undefined}
                   />
@@ -326,9 +325,7 @@ export default function ResearchProjectsClient({
                 <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-6 sm:flex-row">
                   <p className="text-sm text-slate-500">
                     Page{" "}
-                    <span className="font-semibold text-slate-800">
-                      {page}
-                    </span>{" "}
+                    <span className="font-semibold text-slate-800">{page}</span>{" "}
                     of{" "}
                     <span className="font-semibold text-slate-800">
                       {totalPages}
@@ -352,9 +349,7 @@ export default function ResearchProjectsClient({
                       type="button"
                       disabled={page >= totalPages || loading}
                       onClick={() =>
-                        setPage((current) =>
-                          Math.min(totalPages, current + 1)
-                        )
+                        setPage((current) => Math.min(totalPages, current + 1))
                       }
                       className="inline-flex items-center gap-2 rounded-xl bg-blue-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-900 disabled:cursor-not-allowed disabled:opacity-40"
                     >

@@ -172,6 +172,7 @@ export default async function FacultyProfilePage({ params }) {
 
         {/* Hero Content */}
         <div className="mx-auto max-w-6xl">
+          
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-400">
             Academic Faculty
           </p>

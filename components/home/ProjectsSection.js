@@ -9,7 +9,6 @@ export default function ProjectsSection({ projects }) {
     <section className="mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-12">
       <div className="flex items-end justify-between mb-12">
         <div>
-          <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Portfolio</span>
           <h2 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">Featured Student Projects</h2>
         </div>
         <Link href="/projects" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition">
