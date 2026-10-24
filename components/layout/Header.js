@@ -24,6 +24,16 @@ const links = [
         href: "/research/projects",
         description: "Ongoing and completed studies",
       },
+      {
+        label: "Publications",
+        href: "/research/publications",
+        description: "Research papers, journals, and articles",
+      },
+      {
+        label: "Laboratories",
+        href: "/research/laboratories",
+        description: "Research labs and facilities",
+      },
     ],
   },
   { label: "Projects", href: "/projects" },

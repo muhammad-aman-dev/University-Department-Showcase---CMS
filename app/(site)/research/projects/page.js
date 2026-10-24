@@ -1,4 +1,4 @@
-import ResearchProjectsClient from "@/components/reserach/ResearchProjectsClient";
+import ResearchProjectsClient from "@/components/research/ResearchProjectsClient";
 import { getResearchProjects } from "@/lib/data/researchProjects";
 import { buildCollectionJsonLd, serializeJsonLd } from "@/lib/researchSeo";
 
