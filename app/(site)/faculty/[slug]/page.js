@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getFacultyBySlug } from "@/lib/data/faculty";
+import ShowMoreList from "@/components/ShowMoreList";
 import Link from "next/link";
 
 export async function generateMetadata({ params }) {
@@ -350,172 +351,196 @@ export default async function FacultyProfilePage({ params }) {
         )}
 
         {/* Publications */}
+        
+
         {hasPublications && (
-          <Section title="Publications" count={publications.length}>
-            <div className="space-y-4">
-              {publications.map((publication, index) => (
-                <article
-                  key={publication._id || index}
-                  className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition duration-300 hover:border-blue-200 hover:shadow-md sm:p-6"
-                >
-                  <p className="text-xs font-bold uppercase tracking-wide text-blue-800">
-                    {publication.type || "Publication"}
-                    {publication.year ? ` · ${publication.year}` : ""}
-                  </p>
+  <Section title="Publications" count={publications.length}>
+    <ShowMoreList
+      items={publications}
+      initialCount={5}
+      step={5}
+      label="publications"
+    >
+      {publications.map((publication, index) => (
+        <article
+          key={publication._id || index}
+          className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition duration-300 hover:border-blue-200 hover:shadow-md sm:p-6"
+        >
+          <p className="text-xs font-bold uppercase tracking-wide text-blue-800">
+            {publication.type || "Publication"}
+            {publication.year ? ` · ${publication.year}` : ""}
+          </p>
 
-                  {publication.title && (
-                    <h3 className="mt-2 text-base font-bold leading-7 text-slate-900">
-                      {publication.title}
-                    </h3>
-                  )}
+          {publication.title && (
+            <h3 className="mt-2 text-base font-bold leading-7 text-slate-900">
+              {publication.title}
+            </h3>
+          )}
 
-                  {publication.authors && (
-                    <p className="mt-2 text-sm leading-6 text-slate-600">
-                      <strong className="text-slate-800">Authors:</strong>{" "}
-                      {publication.authors}
-                    </p>
-                  )}
+          {publication.authors && (
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              <strong className="text-slate-800">Authors:</strong>{" "}
+              {publication.authors}
+            </p>
+          )}
 
-                  {publication.journal && (
-                    <p className="mt-1 text-sm leading-6 text-slate-600">
-                      {publication.journal}
-                    </p>
-                  )}
+          {publication.journal && (
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              {publication.journal}
+            </p>
+          )}
 
-                  {publication.doi && (
-                    <p className="mt-2 break-all text-sm text-slate-600">
-                      <strong className="text-slate-800">DOI:</strong>{" "}
-                      {publication.doi}
-                    </p>
-                  )}
+          {publication.doi && (
+            <p className="mt-2 break-all text-sm text-slate-600">
+              <strong className="text-slate-800">DOI:</strong>{" "}
+              {publication.doi}
+            </p>
+          )}
 
-                  <div className="mt-3">
-                    <ExternalLink href={publication.url}>
-                      View Publication
-                    </ExternalLink>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Section>
-        )}
+          <div className="mt-3">
+            <ExternalLink href={publication.url}>
+              View Publication
+            </ExternalLink>
+          </div>
+        </article>
+      ))}
+    </ShowMoreList>
+  </Section>
+)}
+
+
 
         {/* Research Projects */}
-        {hasProjects && (
-          <Section
-            title="Project / Research Development"
-            count={projects.length}
-          >
-            <div className="space-y-4">
-              {projects.map((project, index) => (
-                <article
-                  key={project._id || index}
-                  className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition duration-300 hover:border-blue-200 hover:shadow-md sm:p-6"
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <h3 className="min-w-0 flex-1 text-base font-bold leading-7 text-slate-900">
-                      {project.title}
-                    </h3>
+        
+{hasProjects && (
+  <Section
+    title="Project / Research Development"
+    count={projects.length}
+  >
+    <ShowMoreList
+      items={projects}
+      initialCount={4}
+      step={4}
+      label="projects"
+    >
+      {projects.map((project, index) => (
+        <article
+          key={project._id || index}
+          className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition duration-300 hover:border-blue-200 hover:shadow-md sm:p-6"
+        >
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <h3 className="min-w-0 flex-1 text-base font-bold leading-7 text-slate-900">
+              {project.title}
+            </h3>
 
-                    {project.status && (
-                      <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700">
-                        {project.status}
-                      </span>
-                    )}
-                  </div>
+            {project.status && (
+              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700">
+                {project.status}
+              </span>
+            )}
+          </div>
 
-                  {project.description && (
-                    <p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-600">
-                      {project.description}
-                    </p>
-                  )}
+          {project.description && (
+            <p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-600">
+              {project.description}
+            </p>
+          )}
 
-                  <div className="mt-3 space-y-1 text-sm text-slate-600">
-                    {project.role && (
-                      <p>
-                        <strong className="text-slate-800">Role:</strong>{" "}
-                        {project.role}
-                      </p>
-                    )}
+          <div className="mt-3 space-y-1 text-sm text-slate-600">
+            {project.role && (
+              <p>
+                <strong className="text-slate-800">Role:</strong>{" "}
+                {project.role}
+              </p>
+            )}
 
-                    {project.fundingAgency && (
-                      <p>
-                        <strong className="text-slate-800">Funding:</strong>{" "}
-                        {project.fundingAgency}
-                      </p>
-                    )}
+            {project.fundingAgency && (
+              <p>
+                <strong className="text-slate-800">Funding:</strong>{" "}
+                {project.fundingAgency}
+              </p>
+            )}
 
-                    {(project.startYear || project.endYear) && (
-                      <p>
-                        <strong className="text-slate-800">Period:</strong>{" "}
-                        {project.startYear || "—"} –{" "}
-                        {project.endYear || "Present"}
-                      </p>
-                    )}
-                  </div>
+            {(project.startYear || project.endYear) && (
+              <p>
+                <strong className="text-slate-800">Period:</strong>{" "}
+                {project.startYear || "—"} –{" "}
+                {project.endYear || "Present"}
+              </p>
+            )}
+          </div>
 
-                  <div className="mt-3">
-                    <ExternalLink href={project.url}>
-                      View Project
-                    </ExternalLink>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Section>
-        )}
+          <div className="mt-3">
+            <ExternalLink href={project.url}>
+              View Project
+            </ExternalLink>
+          </div>
+        </article>
+      ))}
+    </ShowMoreList>
+  </Section>
+)}
+
 
         {/* Books and Book Chapters */}
-        {hasBooks && (
-          <Section title="Books & Book Chapters" count={books.length}>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {books.map((book, index) => (
-                <article
-                  key={book._id || index}
-                  className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition duration-300 hover:border-blue-200 hover:shadow-md"
-                >
-                  <p className="text-xs font-bold uppercase tracking-wide text-blue-800">
-                    {book.type || "Book"}
-                    {book.year ? ` · ${book.year}` : ""}
-                  </p>
+        
+{hasBooks && (
+  <Section title="Books & Book Chapters" count={books.length}>
+    <ShowMoreList
+      items={books}
+      initialCount={4}
+      step={4}
+      label="books"
+      listClassName="grid gap-4 sm:grid-cols-2"
+    >
+      {books.map((book, index) => (
+        <article
+          key={book._id || index}
+          className="h-full rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition duration-300 hover:border-blue-200 hover:shadow-md"
+        >
+          <p className="text-xs font-bold uppercase tracking-wide text-blue-800">
+            {book.type || "Book"}
+            {book.year ? ` · ${book.year}` : ""}
+          </p>
 
-                  {book.title && (
-                    <h3 className="mt-2 font-bold leading-6 text-slate-900">
-                      {book.title}
-                    </h3>
-                  )}
+          {book.title && (
+            <h3 className="mt-2 font-bold leading-6 text-slate-900">
+              {book.title}
+            </h3>
+          )}
 
-                  {book.authors && (
-                    <p className="mt-2 text-sm text-slate-600">
-                      <strong className="text-slate-800">Authors:</strong>{" "}
-                      {book.authors}
-                    </p>
-                  )}
+          {book.authors && (
+            <p className="mt-2 text-sm text-slate-600">
+              <strong className="text-slate-800">Authors:</strong>{" "}
+              {book.authors}
+            </p>
+          )}
 
-                  {book.publisher && (
-                    <p className="mt-1 text-sm text-slate-600">
-                      <strong className="text-slate-800">Publisher:</strong>{" "}
-                      {book.publisher}
-                    </p>
-                  )}
+          {book.publisher && (
+            <p className="mt-1 text-sm text-slate-600">
+              <strong className="text-slate-800">Publisher:</strong>{" "}
+              {book.publisher}
+            </p>
+          )}
 
-                  {book.isbn && (
-                    <p className="mt-1 break-all text-sm text-slate-600">
-                      <strong className="text-slate-800">ISBN:</strong>{" "}
-                      {book.isbn}
-                    </p>
-                  )}
+          {book.isbn && (
+            <p className="mt-1 break-all text-sm text-slate-600">
+              <strong className="text-slate-800">ISBN:</strong>{" "}
+              {book.isbn}
+            </p>
+          )}
 
-                  <div className="mt-3">
-                    <ExternalLink href={book.url}>
-                      View Book
-                    </ExternalLink>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Section>
-        )}
+          <div className="mt-3">
+            <ExternalLink href={book.url}>
+              View Book
+            </ExternalLink>
+          </div>
+        </article>
+      ))}
+    </ShowMoreList>
+  </Section>
+)}
+
       </div>
     </main>
   );

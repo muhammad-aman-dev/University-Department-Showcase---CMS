@@ -113,9 +113,9 @@ export function PageHero({
 
           <span className="mx-2 text-white/40">/</span>
 
-          <Link href="/research" className="transition hover:text-white">
+          <span className="transition hover:text-white">
             Research
-          </Link>
+          </span>
 
           <span className="mx-2 text-white/40">/</span>
 
