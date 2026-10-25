@@ -20,8 +20,7 @@ import BackButton from "@/components/BackButton";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/+$/, "");
 
-// Keep server-side rendering with three-day ISR caching.
-export const revalidate = 60 * 60 * 24 * 3;
+export const revalidate = 259200;
 
 function getCanonicalUrl(slug) {
   const path = `/publications/${encodeURIComponent(slug)}`;
