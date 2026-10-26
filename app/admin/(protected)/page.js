@@ -51,7 +51,7 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Welcome Banner with Visuals & Animation */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 p-8 text-white shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-blue-900 via-blue-800 to-indigo-900 p-8 text-white shadow-xl">
         {/* Decorative background glow & floating shapes */}
         <div className="absolute -right-10 -top-10 h-64 w-64 rounded-full bg-blue-600/30 blur-3xl pointer-events-none animate-pulse"></div>
         <div className="absolute right-20 -bottom-10 h-48 w-48 rounded-full bg-indigo-500/20 blur-2xl pointer-events-none"></div>

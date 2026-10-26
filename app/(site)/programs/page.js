@@ -33,6 +33,7 @@ const degreeOrder = [
   "Other",
 ];
 
+
 export default async function ProgramsPage() {
   const programs = await getPrograms();
 

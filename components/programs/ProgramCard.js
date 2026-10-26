@@ -1,5 +1,19 @@
 import Link from "next/link";
 
+
+function getPlainText(html = "") {
+  return String(html)
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export default function ProgramCard({ program }) {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-lg">
@@ -47,10 +61,10 @@ export default function ProgramCard({ program }) {
         </h2>
 
         {program.shortDescription && (
-          <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">
-            {program.shortDescription}
-          </p>
-        )}
+  <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">
+    {getPlainText(program.shortDescription)}
+  </p>
+)}
 
         {program.duration && (
           <p className="mt-3 text-sm text-gray-500">

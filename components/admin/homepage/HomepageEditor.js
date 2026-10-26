@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Plus, Trash2, Save, GripVertical } from "lucide-react";
 import { toast } from "sonner";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 import ImageUploader from "@/components/admin/media/ImageUploader";
 
@@ -762,18 +763,19 @@ export default function HomepageEditor() {
             </div>
           </Section>
 
-          <Section
-            title="Scope"
-            description="Describe the academic and professional scope of the department."
-          >
-            <Textarea
-              label="Scope"
-              value={formData.scope}
-              onChange={(value) => updateField("scope", value)}
-              rows={6}
-              placeholder="Enter department scope..."
-            />
-          </Section>
+          
+<Section
+  title="Scope"
+  description="Describe the academic and professional scope of the department."
+>
+  <RichTextEditor
+    label="Academic Scope"
+    value={formData.scope}
+    onChange={(value) => updateField("scope", value)}
+    placeholder="Enter department academic scope..."
+  />
+</Section>
+
 
           <Section
             title="Homepage Statistics"

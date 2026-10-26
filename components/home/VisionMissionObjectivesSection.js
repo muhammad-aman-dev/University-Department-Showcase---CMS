@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import RichTextDisplay from "@/components/shared/RichTextDisplay";
 
 export default function VisionMissionObjectivesSection({ vision, mission, objectives, scope }) {
   if (!vision && !mission && (!objectives || objectives.length === 0) && !scope) return null;
@@ -19,7 +20,7 @@ export default function VisionMissionObjectivesSection({ vision, mission, object
           {mission && (
             <motion.div whileHover={{ y: -3 }} className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-900/5">
               <h3 className="text-xl font-bold text-blue-900">Our Mission</h3>
-              <p className="mt-3 text-sm text-slate-600 leading-relaxed">{mission}</p>
+              <p className="mt-5 text-sm text-slate-600 leading-relaxed">{mission}</p>
             </motion.div>
           )}
         </div>
@@ -45,7 +46,10 @@ export default function VisionMissionObjectivesSection({ vision, mission, object
         {scope && (
           <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-900/5">
             <h3 className="text-xl font-bold text-blue-900">Academic Scope</h3>
-            <p className="mt-3 text-sm text-slate-600 leading-relaxed">{scope}</p>
+            <RichTextDisplay
+  content={scope}
+  className="academic-scope"
+/>
           </div>
         )}
 

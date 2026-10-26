@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ImageUploader from "../media/ImageUploader";
 import FileUploader from "../media/FileUploader";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 const DEGREE_TYPES = [
 "Undergraduate",
@@ -353,30 +354,28 @@ className="mb-3 text-sm font-medium text-gray-600 hover"
         <label htmlFor="shortDescription" className="mb-1.5 block text-sm font-medium text-gray-700">
           Short description
         </label>
-        <textarea
-          id="shortDescription"
-          rows={3}
-          value={form.shortDescription}
-          onChange={(event) =>
-            updateField("shortDescription", event.target.value)
-          }
-          placeholder="A short introduction to this program..."
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-        />
+        <div>
+  <RichTextEditor
+    label="Short description"
+    value={form.shortDescription || ""}
+    onChange={(value) => updateField("shortDescription", value)}
+    placeholder="Write a short introduction to this program..."
+  />
+</div>
       </div>
 
       <div>
         <label htmlFor="eligibility" className="mb-1.5 block text-sm font-medium text-gray-700">
           Eligibility requirements
         </label>
-        <textarea
-          id="eligibility"
-          rows={4}
-          value={form.eligibility}
-          onChange={(event) => updateField("eligibility", event.target.value)}
-          placeholder="Enter admission and eligibility requirements..."
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-        />
+        <div>
+  <RichTextEditor
+    label="Eligibility requirements"
+    value={form.eligibility || ""}
+    onChange={(value) => updateField("eligibility", value)}
+    placeholder="Enter admission and eligibility requirements..."
+  />
+</div>
       </div>
 
       <div className="flex flex-wrap gap-6">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProgramBySlug } from "@/lib/data/programs";
+import RichTextDisplay from "@/components/shared/RichTextDisplay";
 
 function Icon({ name, className = "h-5 w-5" }) {
   const common = {
@@ -239,15 +240,16 @@ export default async function ProgramDetailPage({ params }) {
                 title="Program Overview"
               />
 
-              {program.shortDescription ? (
-                <p className="whitespace-pre-line text-base leading-8 text-slate-600">
-                  {program.shortDescription}
-                </p>
-              ) : (
-                <p className="text-base leading-8 text-slate-500">
-                  Detailed information about this program will be added soon.
-                </p>
-              )}
+{program.shortDescription ? (
+  <RichTextDisplay
+    content={program.shortDescription}
+    className="text-base leading-8"
+  />
+) : (
+  <p className="text-base leading-8 text-slate-500">
+    Detailed information about this program will be added soon.
+  </p>
+)}
             </section>
 
             {/* Program Image */}
@@ -274,7 +276,7 @@ export default async function ProgramDetailPage({ params }) {
 
               {program.eligibility ? (
                 <div className="flex items-start gap-4 rounded-xl border border-blue-100 bg-blue-50/70 p-5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-blue-800 shadow-sm ring-1 ring-blue-100">
+                  <div className="md:flex hidden  h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-blue-800 shadow-sm ring-1 ring-blue-100">
                     <Icon name="check" className="h-5 w-5" />
                   </div>
 
@@ -283,9 +285,12 @@ export default async function ProgramDetailPage({ params }) {
                       Eligibility Requirements
                     </p>
 
-                    <p className="mt-2 whitespace-pre-line text-sm leading-7 text-slate-600">
-                      {program.eligibility}
-                    </p>
+                    <div className="mt-2">
+  <RichTextDisplay
+    content={program.eligibility}
+    className="text-sm leading-7"
+  />
+</div>
                   </div>
                 </div>
               ) : (
