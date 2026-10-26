@@ -18,6 +18,7 @@ import {
 import { toast } from "sonner";
 import ImageUploader from "@/components/admin/media/ImageUploader";
 import FileUploader from "@/components/admin/media/FileUploader";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 const emptyForm = {
   title: "",
@@ -512,19 +513,16 @@ const [projectToDelete, setProjectToDelete] = useState(null);
                   </Field>
                 </div>
 
-                <div className="md:col-span-2">
-                  <Field label="Full description">
-                    <textarea
-                      rows={6}
-                      value={form.description}
-                      onChange={(event) =>
-                        updateField("description", event.target.value)
-                      }
-                      placeholder="Describe the research objectives, methodology, and expected outcomes."
-                      className={inputClass}
-                    />
-                  </Field>
-                </div>
+                
+<div className="md:col-span-2">
+  <RichTextEditor
+    label="Full description"
+    value={form.description || ""}
+    onChange={(value) => updateField("description", value)}
+    placeholder="Describe the research objectives, methodology, and expected outcomes..."
+  />
+</div>
+
               </div>
             </div>
 

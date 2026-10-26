@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getFacultyBySlug } from "@/lib/data/faculty";
 import ShowMoreList from "@/components/ShowMoreList";
 import Link from "next/link";
+import RichTextDisplay from "@/components/shared/RichTextDisplay";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -326,13 +327,16 @@ export default async function FacultyProfilePage({ params }) {
         </section>
 
         {/* Biography */}
-        {hasBiography && (
-          <Section title="Biography">
-            <div className="whitespace-pre-line rounded-xl border border-slate-200/80 bg-white p-5 text-sm leading-7 text-slate-700 shadow-sm sm:p-6">
-              {faculty.bio}
-            </div>
-          </Section>
-        )}
+{hasBiography && (
+  <Section title="Biography">
+    <div className="rounded-xl border border-slate-200/80 bg-white p-5 text-sm leading-7 text-slate-700 shadow-sm sm:p-6">
+      <RichTextDisplay
+        content={faculty.bio}
+        className="text-sm leading-7 sm:text-base sm:leading-8"
+      />
+    </div>
+  </Section>
+)}
 
         {/* Research Interests */}
         {hasInterests && (

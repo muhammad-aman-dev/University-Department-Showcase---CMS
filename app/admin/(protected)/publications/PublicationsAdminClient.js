@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import FileUploader from "@/components/admin/media/FileUploader";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 const API_URL = "/api/admin/publications";
 
@@ -851,17 +852,14 @@ const loadPublications = useCallback(async () => {
                   />
                 </Field>
 
-                <Field label="Abstract" className="sm:col-span-2">
-                  <textarea
-                    rows={6}
-                    value={form.abstract}
-                    onChange={(event) =>
-                      updateField("abstract", event.target.value)
-                    }
-                    placeholder="Write a short summary of the publication..."
-                    className={inputClass}
-                  />
-                </Field>
+                <div className="sm:col-span-2">
+  <RichTextEditor
+    label="Abstract"
+    value={form.abstract || ""}
+    onChange={(value) => updateField("abstract", value)}
+    placeholder="Write a summary of the publication..."
+  />
+</div>
 
                 <div className="sm:col-span-2">
                   <FileUploader

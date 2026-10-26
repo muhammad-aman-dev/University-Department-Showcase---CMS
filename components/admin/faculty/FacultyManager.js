@@ -430,7 +430,7 @@ export default function FacultyManager() {
       {/* Add/Edit form modal */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-gray-900/40 p-3 backdrop-blur-sm sm:p-6">
-          <div className="my-auto w-full max-w-3xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
+          <div className="my-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
             <div className="flex items-center justify-between border-b border-gray-200 bg-white px-5 py-4 sm:px-6">
               <div>
                 <h2 className="text-base font-semibold tracking-tight text-gray-900">

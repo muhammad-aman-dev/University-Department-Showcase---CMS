@@ -20,6 +20,7 @@ import {
 } from "@/lib/data/researchDetails";
 
 import BackButton from "@/components/BackButton";
+import RichTextDisplay from "@/components/shared/RichTextDisplay";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/+$/, "");
 
@@ -365,9 +366,12 @@ export default async function ResearchProjectDetailPage({ params }) {
                   About this project
                 </h2>
 
-                <div className="mt-6 whitespace-pre-line text-base leading-8 text-slate-600">
-                  {project.description}
-                </div>
+                <div className="mt-6 text-base leading-8 text-slate-600">
+  <RichTextDisplay
+    content={project.description}
+    className="text-base leading-8"
+  />
+</div>
               </article>
             ) : project.shortDescription ? (
               <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-9">

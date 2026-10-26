@@ -14,6 +14,7 @@ import {
   getProjectsForResearchArea,
 } from "@/lib/data/researchDetails";
 import BackButton from "@/components/BackButton";
+import RichTextDisplay from "@/components/shared/RichTextDisplay";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/+$/, "");
 
@@ -248,7 +249,7 @@ export default async function ResearchAreaDetailPage({ params }) {
       {/* Description */}
       {area.description ? (
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-4xl px-5 sm:px-8">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8">
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-9">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-900">
@@ -259,9 +260,12 @@ export default async function ResearchAreaDetailPage({ params }) {
                 </h2>
               </div>
 
-              <div className="mt-6 whitespace-pre-line text-base leading-8 text-slate-600">
-                {area.description}
-              </div>
+              <div className="mt-6 text-base leading-8 text-slate-600">
+  <RichTextDisplay
+    content={area.description}
+    className="text-base leading-8"
+  />
+</div>
             </div>
           </div>
         </section>

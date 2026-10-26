@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import ImageUploader from "../media/ImageUploader";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 const DESIGNATIONS = [
   "Professor",
@@ -1108,11 +1109,14 @@ export default function FacultyForm({ faculty, onSaved, onCancel }) {
           />
         </div>
 
-        <TextArea
-          label="Biography"
-          value={form.bio}
-          onChange={(value) => update("bio", value)}
-        />
+        <div className="md:col-span-2">
+  <RichTextEditor
+    label="Biography"
+    value={form.bio || ""}
+    onChange={(value) => update("bio", value)}
+    placeholder="Write the faculty member's biography..."
+  />
+</div>
       </Section>
 
       <Section title="Publication Settings" description="Visibility and faculty status.">

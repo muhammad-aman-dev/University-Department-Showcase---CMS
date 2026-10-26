@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import ImageUploader from "@/components/admin/media/ImageUploader";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 const emptyForm = {
   name: "",
@@ -329,19 +330,16 @@ const [areaToDelete, setAreaToDelete] = useState(null);
                 </p>
               </Field>
 
-              <div className="md:col-span-2">
-                <Field label="Full description">
-                  <textarea
-                    rows={5}
-                    value={form.description}
-                    onChange={(event) =>
-                      updateField("description", event.target.value)
-                    }
-                    placeholder="Describe the research area, focus, and objectives."
-                    className={inputClass}
-                  />
-                </Field>
-              </div>
+              
+<div className="md:col-span-2">
+  <RichTextEditor
+    label="Full description"
+    value={form.description || ""}
+    onChange={(value) => updateField("description", value)}
+    placeholder="Describe the research area, focus, and objectives..."
+  />
+</div>
+
 
               <div className="md:col-span-2">
                 <ImageUploader

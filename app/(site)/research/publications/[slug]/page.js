@@ -17,6 +17,7 @@ import {
 
 import { getPublicationBySlug } from "@/lib/data/publications";
 import BackButton from "@/components/BackButton";
+import RichTextDisplay from "@/components/shared/RichTextDisplay";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/+$/, "");
 
@@ -97,9 +98,14 @@ export async function generateMetadata({ params }) {
 
   const title = `${publication.title} | Department Publications`;
 
-  const description =
-    publication.abstract?.slice(0, 155) ||
-    `Read ${publication.title}, a research publication from the department.`;
+  const plainAbstract =
+  typeof publication.abstract === "string"
+    ? publication.abstract.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()
+    : "";
+
+const description =
+  plainAbstract.slice(0, 155) ||
+  `Read ${publication.title}, a research publication from the department.`;
 
   const canonical = getCanonicalUrl(publication.slug);
 
@@ -319,13 +325,17 @@ export default async function PublicationDetailPage({ params }) {
                 </div>
               ) : null}
 
-              {publication.abstract ? (
-                <p className="mt-5 max-w-3xl text-sm leading-7 text-blue-100 sm:text-base sm:leading-8">
-                  {publication.abstract.length > 280
-                    ? `${publication.abstract.slice(0, 280).trimEnd()}…`
-                    : publication.abstract}
-                </p>
-              ) : null}
+
+<div className="mt-6 max-w-3xl border-l-2 border-blue-300/70 pl-5">
+  <p className="text-base italic leading-8 text-blue-100 sm:text-lg">
+    “Research publications are the building blocks of knowledge,
+    turning curiosity into discovery and discoveries into progress.”
+  </p>
+  <p className="mt-3 text-xs font-medium uppercase tracking-widest text-blue-200/80">
+    The importance of academic research
+  </p>
+</div>
+
 
               {publication.researchArea ? (
                 <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-amber-400">
@@ -363,7 +373,7 @@ export default async function PublicationDetailPage({ params }) {
             </div>
 
             {/* Publication summary panel */}
-            <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-2xl backdrop-blur-sm">
+            <div className="hidden md:block overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-2xl backdrop-blur-sm">
               <div className="flex min-h-64 flex-col justify-between bg-linear-to-br from-blue-900/80 to-blue-950 p-7 sm:p-9">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-amber-400">
                   <GraduationCap className="h-9 w-9" />
@@ -427,9 +437,12 @@ export default async function PublicationDetailPage({ params }) {
                   </div>
                 </div>
 
-                <div className="mt-6 whitespace-pre-line text-base leading-8 text-slate-600">
-                  {publication.abstract}
-                </div>
+                <div className="mt-6 text-base leading-8 text-slate-600">
+  <RichTextDisplay
+    content={publication.abstract}
+    className="text-base leading-8"
+  />
+</div>
               </article>
             ) : (
               <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-9">
