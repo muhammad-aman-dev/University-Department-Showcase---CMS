@@ -13,10 +13,8 @@ import {
   Heading3,
   List,
   ListOrdered,
-  Quote,
-  Undo2,
-  Redo2,
   Minus,
+  Quote,
 } from "lucide-react";
 
 export default function RichTextEditor({
@@ -114,20 +112,6 @@ export default function RichTextEditor({
       icon: Minus,
       active: false,
       action: () => editor.chain().focus().setHorizontalRule().run(),
-    },
-    {
-      label: "Undo",
-      icon: Undo2,
-      active: false,
-      disabled: !editor.can().undo(),
-      action: () => editor.chain().focus().undo().run(),
-    },
-    {
-      label: "Redo",
-      icon: Redo2,
-      active: false,
-      disabled: !editor.can().redo(),
-      action: () => editor.chain().focus().redo().run(),
     },
   ];
 
