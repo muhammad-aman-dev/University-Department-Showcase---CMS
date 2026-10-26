@@ -12,6 +12,7 @@ import {
   LoaderCircle,
 } from "lucide-react";
 import ImageUploader from "@/components/admin/media/ImageUploader";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 const emptyFormData = {
   title: "",
@@ -341,18 +342,13 @@ export default function EditStudentProjectForm({ projectId }) {
           </div>
 
           <div className="md:col-span-2">
-            <label className={labelClass}>Full Description *</label>
-            <textarea
-              className={inputClass}
-              rows={7}
-              value={formData.description}
-              onChange={(event) =>
-                updateField("description", event.target.value)
-              }
-              placeholder="Describe the project, its features, and purpose..."
-              required
-            />
-          </div>
+  <RichTextEditor
+    label="Full Description"
+    value={formData.description || ""}
+    onChange={(value) => updateField("description", value)}
+    placeholder="Describe the project, its features, and purpose..."
+  />
+</div>
         </div>
       </section>
 

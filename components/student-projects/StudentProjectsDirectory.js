@@ -407,13 +407,12 @@ export default function StudentProjectsDirectory() {
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center">
-                        <Code2
-                          size={52}
-                          strokeWidth={1.2}
-                          className="text-blue-950/30"
-                        />
-                      </div>
+                      <img
+                      src={`https://placehold.co/800x500/172554/FFFFFF?text=${encodeURIComponent(project.title)}`}
+                        alt={project.title || "Student project"}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
                     )}
 
                     <div className="absolute left-3 top-3 flex flex-wrap gap-2">

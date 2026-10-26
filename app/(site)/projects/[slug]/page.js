@@ -11,6 +11,7 @@ import {
   Code2,
   GitBranch,
 } from "lucide-react";
+import RichTextDisplay from "@/components/shared/RichTextDisplay";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -164,10 +165,18 @@ export default async function StudentProjectDetailsPage({ params }) {
         {/* Main column */}
         <div className="min-w-0 space-y-8">
           {/* Project image */}
-          {project.image && (
+          {project.image ? (
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <img
                 src={project.image}
+                alt={project.title}
+                className="max-h-162.5 min-h-75 w-full object-cover sm:min-h-100"
+              />
+            </div>
+          ): (
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img
+                src={`https://placehold.co/800x500/172554/FFFFFF?text=${encodeURIComponent(project.title)}`}
                 alt={project.title}
                 className="max-h-162.5 min-h-75 w-full object-cover sm:min-h-100"
               />
@@ -183,15 +192,18 @@ export default async function StudentProjectDetailsPage({ params }) {
             <div className="mt-3 h-1 w-12 rounded-full bg-amber-400" />
 
             {project.description ? (
-              <div className="mt-6 whitespace-pre-line text-sm leading-7 text-slate-700 sm:text-base sm:leading-8">
-                {project.description}
-              </div>
-            ) : (
-              <p className="mt-5 text-sm text-slate-500">
-                No detailed description is available for this
-                project yet.
-              </p>
-            )}
+  <div className="mt-6">
+    <RichTextDisplay
+      content={project.description}
+      className="text-sm leading-7 sm:text-base sm:leading-8"
+    />
+  </div>
+) : (
+  <p className="mt-5 text-sm text-slate-500">
+    No detailed description is available for this
+    project yet.
+  </p>
+)}
           </article>
 
           {/* Technologies */}
